@@ -1,0 +1,26 @@
+장고 서버 실행
+PS E:\books\pythonCleanCodeTDD\superlists> python .\manage.py runserver
+장고 뷰생성
+PS E:\books\pythonCleanCodeTDD\superlists> python .\manage.py startapp lists
+
+
+p 27
+
+PS E:\books\pythonCleanCodeTDD\superlists> python .\manage.py test          
+Creating test database for alias 'default'...
+F
+======================================================================
+FAIL: test_bad_math (lists.tests.SmokeTest)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "E:\books\pythonCleanCodeTDD\superlists\lists\tests.py", line 7, in test_bad_math
+    self.assertEqual(1+1,3)
+AssertionError: 2 != 3
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (failures=1)
+Destroying test database for alias 'default'...
+
+
