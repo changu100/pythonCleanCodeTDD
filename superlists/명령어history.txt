@@ -130,3 +130,47 @@ Ran 1 test in 0.003s
 
 FAILED (errors=1)
 Destroying test database for alias 'default'...
+
+
+
+p33
+PS E:\books\pythonCleanCodeTDD\superlists> python .\manage.py test
+Creating test database for alias 'default'...
+E
+======================================================================
+ERROR: test_root_url_resolves_to_home_page_view (lists.tests.HomePageTest)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\python\python34\lib\site-packages\django\core\urlresolvers.py", line 97, in get_callable
+    mod = import_module(mod_name)
+  File "C:\python\python34\lib\importlib\__init__.py", line 109, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 2254, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 2237, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 2224, in _find_and_load_unlocked
+ImportError: No module named 'superlists.views'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\books\pythonCleanCodeTDD\superlists\lists\tests.py", line 15, in test_root_url_resolves_to_home_page_view
+    found = resolve('/')
+  File "C:\python\python34\lib\site-packages\django\core\urlresolvers.py", line 489, in resolve
+    return get_resolver(urlconf).resolve(path)
+  File "C:\python\python34\lib\site-packages\django\core\urlresolvers.py", line 340, in resolve
+    sub_match = pattern.resolve(new_path)
+  File "C:\python\python34\lib\site-packages\django\core\urlresolvers.py", line 224, in resolve
+    return ResolverMatch(self.callback, args, kwargs, self.name)
+  File "C:\python\python34\lib\site-packages\django\core\urlresolvers.py", line 231, in callback
+    self._callback = get_callable(self._callback_str)
+  File "C:\python\python34\lib\functools.py", line 448, in wrapper
+    result = user_function(*args, **kwds)
+  File "C:\python\python34\lib\site-packages\django\core\urlresolvers.py", line 104, in get_callable
+    (lookup_view, mod_name))
+django.core.exceptions.ViewDoesNotExist: Could not import superlists.views.home_page. Parent module superlists.views does not exist.
+
+----------------------------------------------------------------------
+Ran 1 test in 0.004s
+
+FAILED (errors=1)
+Destroying test database for alias 'default'...
