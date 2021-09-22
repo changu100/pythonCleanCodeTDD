@@ -36,6 +36,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'lists',
+    #마지막에는 쉼표를 붙이는 습관을 들여라
 )
 
 MIDDLEWARE_CLASSES = (
