@@ -32,6 +32,11 @@ class NewVisitorTest(unittest.TestCase):
         # (에디스의 취미는 날치 잡이용 그물을 만드는 것이다.)
         inputbox.send_keys(Keys.ENTER)
 
+        # CSRF 오류 문제 확인용 코드
+        # import time 
+        # time.sleep(10)
+        #/ CSRF 오류 문제 확인용 코드
+        
         table= self.browser.find_element_by_id('id_list_table')
         rows = table.find_elements_by_tag_name('tr')
         self.assertTrue(
