@@ -12,7 +12,12 @@ class NewVisitorTest(unittest.TestCase):
     def tearDown(self):
         # unittest 종료시 종료 옵션
         self.browser.quit()
-        
+    
+    def check_for_row_in_list_table(self, row_text):
+        table= self.browser.find_element_by_id('id_list_table')
+        rows = table.find_elements_by_tag_name('tr')
+        self.assertIn(row_text, [row.text for row in rows])
+
     def test_can_start_a_list_and_retriee_it_later(self):
         self.browser.get('http://localhost:8000')
         self.assertIn('To-Do',self.browser.title)
@@ -40,16 +45,9 @@ class NewVisitorTest(unittest.TestCase):
         
         table= self.browser.find_element_by_id('id_list_table')
         rows = table.find_elements_by_tag_name('tr')
-        """
-        self.assertTrue(
-            any(row.text == '1: 공작깃털 사기' for row in rows),
-            "신규작업이 테이블에 표시되지 않는다 -- 해당 텍스트:\n%s" % (
-                table.text
-            )
-            
-        )
-        """
-        self.assertIn('1: 공작 깃털 사기', [row.text for row in rows])
+       
+        self.check_for_row_in_list_table('1: 공작 깃털 사기')
+        self.check_for_row_in_list_table('2: 공작 깃털을 이용해서 그물 만들기')
 
         self.fail('Finish the test!')
 
