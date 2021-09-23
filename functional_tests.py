@@ -15,7 +15,6 @@ class NewVisitorTest(unittest.TestCase):
         
     def test_can_start_a_list_and_retriee_it_later(self):
         self.browser.get('http://localhost:8000')
-
         self.assertIn('To-Do',self.browser.title)
         header_text= self.browser.find_element_by_tag_name('h1').text
         self.assertIn('To-Do',header_text)
@@ -32,6 +31,8 @@ class NewVisitorTest(unittest.TestCase):
         # (에디스의 취미는 날치 잡이용 그물을 만드는 것이다.)
         inputbox.send_keys(Keys.ENTER)
 
+        import time
+        time.sleep(1)
         # CSRF 오류 문제 확인용 코드
         # import time 
         # time.sleep(10)
@@ -41,7 +42,10 @@ class NewVisitorTest(unittest.TestCase):
         rows = table.find_elements_by_tag_name('tr')
         self.assertTrue(
             any(row.text == '1: 공작깃털 사기' for row in rows),
-            "신규작업이 테이블에 표시되지 않는다"
+            "신규작업이 테이블에 표시되지 않는다 -- 해당 텍스트:\n%s" % (
+                table.text
+            )
+            
         )
 
 
