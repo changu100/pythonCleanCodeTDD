@@ -1,8 +1,9 @@
+
 from django.core.urlresolvers import resolve
 from django.template.loader import render_to_string
 from lists.views import home_page
 from django.test import TestCase
-from django.http import HttpRequest
+from django.http import HttpRequest, request
 
 from lists.models import Item
 # Create your tests here.
@@ -50,7 +51,9 @@ class HomePageTest(TestCase):
         )
         self.assertEqual(response.content.decode(),expected_html)
 
-
+    def test_home_page_only_saves_items_when_necessary(self):
+        request = HttpRequest()
+        home_page(request)
 class ItemModelTest(TestCase):
 
     def test_saving_and_retrieving_items(self):
