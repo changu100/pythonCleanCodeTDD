@@ -91,12 +91,11 @@ class ItemModelTest(TestCase):
 
 
 class ListViewTest(TestCase):
-    def test_home_page_displays_all_list_items(self):
+    def test_displays_all_list_items(self):
         Item.objects.create(text='itemey 1')
         Item.objects.create(text='itemey 2')
 
-        request = HttpRequest()
-        response= self.client.get('/lists/the-only-list-in-the-world')
+        response= self.client.get('/lists/the-only-list-in-the-world/')
 
         self.assertContains(response, 'itemey 1')
         self.assertContains(response, 'itemey 2')
