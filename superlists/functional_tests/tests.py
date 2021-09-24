@@ -50,11 +50,39 @@ class NewVisitorTest(LiveServerTestCase):
         # time.sleep(10)
         #/ CSRF 오류 문제 확인용 코드
         
-        table= self.browser.find_element_by_id('id_list_table')
-        rows = table.find_elements_by_tag_name('tr')
-       
+
+        edith_list_url = self.browser.current_url
+        self.assertRegex(edith_list_url,'/list/.+')
+
         self.check_for_row_in_list_table('1: 공작 깃털 사기')
         self.check_for_row_in_list_table('2: 공작 깃털을 이용해서 그물 만들기')
 
-        self.fail('Finish the test!')
+        ## We use a new browser session to make sure that no information
+        ## of Edith's is coming through from cookies etc
+        self.browser.quit()
+        self.browser = webdriver.Firefox()
+
+        # Francis visits the home page.  There is no sign of Edith's
+        # list
+        self.browser.get(self.live_server_url)
+        page_text = self.browser.find_element_by_tag_name('body').text
+        self.assertNotIn('공작 깃털 사기', page_text)
+        self.assertNotIn('그물 만들기', page_text)
+
+        # Francis starts a new list by entering a new item. He
+        # is less interesting than Edith...
+        inputbox = self.browser.find_element_by_id('id_new_item')
+        inputbox.send_keys('우유 사기')
+        inputbox.send_keys(Keys.ENTER)
+        self.wait_for_row_in_list_table('1: 우유 사기')
+
+        # Francis gets his own unique URL
+        francis_list_url = self.browser.current_url
+        self.assertRegex(francis_list_url, '/lists/.+')
+        self.assertNotEqual(francis_list_url, edith_list_url)
+
+        # Again, there is no trace of Edith's list
+        page_text = self.browser.find_element_by_tag_name('body').text
+        self.assertNotIn('공작 깃털 사기', page_text)
+        self.assertIn('우유 사기', page_text)
 
