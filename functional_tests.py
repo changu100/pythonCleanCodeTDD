@@ -1,7 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import unittest
-
+import time
 class NewVisitorTest(unittest.TestCase):
     def setUp(self):
         # unittest 시작시 실행옵션
@@ -34,9 +34,15 @@ class NewVisitorTest(unittest.TestCase):
 
         # "공작깃털 사기"라고 테스트 상자에 입력한다
         # (에디스의 취미는 날치 잡이용 그물을 만드는 것이다.)
+        inputbox.send_keys('공작 깃털 사기')
+        inputbox.send_keys(Keys.ENTER)
+        
+        time.sleep(1)
+        
+        inputbox = self.browser.find_element_by_id('id_new_item')
+        inputbox.send_keys('공작 깃털을 이용해서 그물 만들기')
         inputbox.send_keys(Keys.ENTER)
 
-        import time
         time.sleep(1)
         # CSRF 오류 문제 확인용 코드
         # import time 
@@ -50,6 +56,8 @@ class NewVisitorTest(unittest.TestCase):
         self.check_for_row_in_list_table('2: 공작 깃털을 이용해서 그물 만들기')
 
         self.fail('Finish the test!')
+
+
 
 if __name__ == '__main__':
     unittest.main(warnings='ignore')
